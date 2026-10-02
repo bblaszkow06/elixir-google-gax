@@ -33,8 +33,9 @@ defmodule Gax.ApiTest do
     mock(fn %{
               method: :get,
               url: "https://example.com/v1/stores/store-1/pets",
-              headers: [{"x-goog-api-client", ^api_client}]
+              headers: headers
             } ->
+      assert {"x-goog-api-client", api_client} in headers
       %Tesla.Env{status: 200, body: @pets_json}
     end)
 
@@ -67,6 +68,19 @@ defmodule Gax.ApiTest do
     assert Enum.all?(pets.pets, fn pet ->
              assert %TestClient.Model.Pet{} = pet
            end)
+  end
+
+  test "gzipped response" do
+    gzipped = :zlib.gzip(@pets_json)
+
+    mock(fn %{method: :get} ->
+      %Tesla.Env{status: 200, headers: [{"content-encoding", "gzip"}], body: gzipped}
+    end)
+
+    conn = TestClient.Connection.new()
+
+    assert {:ok, %TestClient.Model.Pets{pets: [%TestClient.Model.Pet{name: "Fido"}]}} =
+             TestClient.Api.Pets.pets_list_by_store(conn, "store-1")
   end
 
   @tag :skip

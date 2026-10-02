@@ -30,6 +30,10 @@ defmodule MyConnection do
 end
 ```
 
+Compressed responses are rejected when they inflate to more than 32 MB. Pass
+`max_body_size: bytes` (or `:infinity`) to change the cap, or set `:max_body_size`
+in the config of the `:otp_app`.
+
 ### GoogleApi.Gax.ModelBase
 
 This module is used to provide macros for helping to define your model structs:
