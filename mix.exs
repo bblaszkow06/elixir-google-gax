@@ -29,7 +29,7 @@ defmodule GoogleApi.Gax.MixProject do
       {:tesla, "~> 1.18 and >= 1.18.3"},
       {:poison, ">= 4.0.0"},
       {:ex_doc, "~> 0.16", only: :dev},
-      {:dialyxir, "~> 0.5", only: [:dev], runtime: false}
+      {:dialyxir, "~> 1.4", only: [:dev], runtime: false}
     ]
   end
 

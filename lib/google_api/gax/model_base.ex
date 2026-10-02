@@ -121,7 +121,7 @@ defmodule GoogleApi.Gax.ModelBase do
   @doc """
   Helper to encode model into JSON
   """
-  @spec encode(struct(), keyword()) :: String.t()
+  @spec encode(struct(), keyword() | map()) :: iodata()
   def encode(value, options) do
     value
     |> Map.from_struct()

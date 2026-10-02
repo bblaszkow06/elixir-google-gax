@@ -42,7 +42,7 @@ defmodule GoogleApi.Gax.DataWrapper do
       %TestClient.Model.Pet{id: 123, name: "Fido"}
 
   """
-  @spec decode(GoogleApi.Gax.DataWrapper.t(), keyword()) :: any()
+  @spec decode(GoogleApi.Gax.DataWrapper.t(), keyword() | map()) :: any()
   def decode(data_wrapper, options) do
     struct = options[:struct]
     Poison.Decode.transform(data_wrapper.data, %{as: struct})
